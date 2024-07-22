@@ -12,12 +12,13 @@
         "sources": "https://github.com/FabricMC/fabric-example-mod"
     },
     "license": "${license}",
-    "icon": "${mod_id}.png",
+    "icon": "assets/${mod_id}/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
             "at.alex.pingintablist.PingInTablist"
-        ]
+        ],
+        "modmenu": ["at.alex.pingintablist.impl.modmenu.ModMenuImpl"]
     },
     "mixins": [
         "${mod_id}.mixins.json",

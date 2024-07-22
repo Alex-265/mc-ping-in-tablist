@@ -3,6 +3,11 @@ package at.alex.pingintablist.config;
 
 import at.alex.pingintablist.Constants;
 import at.alex.pingintablist.platform.Services;
+import com.mojang.authlib.minecraft.client.MinecraftClient;
+import com.mojang.datafixers.kinds.Const;
+import net.minecraft.client.Minecraft;
+import org.apache.logging.log4j.core.appender.ConsoleAppender;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -17,10 +22,10 @@ public class Config {
         try {
             FileReader configReader = new FileReader(Constants.configFilePath);
             properties.load(configReader);
+            configReader.close();
         } catch (FileNotFoundException e) {
             Constants.LOG.info("Generating the config file at: " + Constants.configFilePath);
             save();
-            return;
         } catch (IOException e) {
             Constants.LOG.error("[FATAL]: Failed to read config file: " + Constants.configFilePath);
             throw new RuntimeException(e);
@@ -47,9 +52,9 @@ public class Config {
                 parentDir.mkdirs();
             }
             FileWriter configWriter = new FileWriter(config);
-            writeInt(configWriter, DefaultConfig.CONFIG_FONT_SIZE, fontSize);
-            writeInt(configWriter, DefaultConfig.CONFIG_X_OFFSET, offsetX);
-            writeInt(configWriter, DefaultConfig.CONFIG_Y_OFFSET, offsetY);
+            writeInt(configWriter, DefaultConfig.CONFIG_FONT_SIZE, DefaultConfig.defaultFontSize);
+            writeInt(configWriter, DefaultConfig.CONFIG_X_OFFSET, DefaultConfig.defaultOffsetX);
+            writeInt(configWriter, DefaultConfig.CONFIG_Y_OFFSET, DefaultConfig.defaultOffsetY);
             configWriter.close();
             if(!existed) {
                 Constants.LOG.info("Created config file");
