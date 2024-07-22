@@ -39,3 +39,7 @@ artifacts {
     commonResources sourceSets.main.resources.sourceDirectories.singleFile
 }
 
+tasks.withType(Javadoc).configureEach {
+    enabled = false
+}
+
