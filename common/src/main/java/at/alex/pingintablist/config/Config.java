@@ -13,7 +13,6 @@ import java.util.Properties;
 
 public class Config {
     public static final Properties defaultValues = new Properties();
-    public int fontSize;
     public int offsetX;
     public int offsetY;
     public void read() {
@@ -30,7 +29,6 @@ public class Config {
             Constants.LOG.error("[FATAL]: Failed to read config file: " + Constants.configFilePath);
             throw new RuntimeException(e);
         }
-        fontSize = parseIntOrDefault(properties.getProperty(DefaultConfig.CONFIG_FONT_SIZE), DefaultConfig.defaultFontSize);
         offsetX = parseIntOrDefault(properties.getProperty(DefaultConfig.CONFIG_X_OFFSET), DefaultConfig.defaultOffsetX);
         offsetY = parseIntOrDefault(properties.getProperty(DefaultConfig.CONFIG_Y_OFFSET), DefaultConfig.defaultOffsetY);
     }
@@ -44,6 +42,7 @@ public class Config {
     }
 
     public void save() {
+        Constants.LOG.info("Trying to save config to " + Constants.configFilePath);
         try {
             File config = new File(Constants.configFilePath);
             boolean existed = config.exists();
@@ -52,9 +51,8 @@ public class Config {
                 parentDir.mkdirs();
             }
             FileWriter configWriter = new FileWriter(config);
-            writeInt(configWriter, DefaultConfig.CONFIG_FONT_SIZE, DefaultConfig.defaultFontSize);
-            writeInt(configWriter, DefaultConfig.CONFIG_X_OFFSET, DefaultConfig.defaultOffsetX);
-            writeInt(configWriter, DefaultConfig.CONFIG_Y_OFFSET, DefaultConfig.defaultOffsetY);
+            writeInt(configWriter, DefaultConfig.CONFIG_X_OFFSET, this.offsetX, DefaultConfig.defaultOffsetX);
+            writeInt(configWriter, DefaultConfig.CONFIG_Y_OFFSET, this.offsetY, DefaultConfig.defaultOffsetY);
             configWriter.close();
             if(!existed) {
                 Constants.LOG.info("Created config file");
@@ -64,11 +62,14 @@ public class Config {
             throw new RuntimeException(e);
         }
     }
-    private static void writeInt(FileWriter configWriter, String name, Integer value) throws IOException {
-        configWriter.write(name + '=' + value + '\n');
+    private static void writeInt(FileWriter configWriter, String name, Integer value, Integer defaultValue) throws IOException {
+        if(value == null) {
+            configWriter.write(name + '=' + defaultValue + '\n');
+        } else {
+            configWriter.write(name + '=' + value + '\n');
+        }
     }
     static {
-        defaultValues.setProperty(DefaultConfig.CONFIG_FONT_SIZE, String.valueOf(DefaultConfig.defaultFontSize));
         defaultValues.setProperty(DefaultConfig.CONFIG_X_OFFSET, String.valueOf(DefaultConfig.defaultOffsetX));
         defaultValues.setProperty(DefaultConfig.CONFIG_Y_OFFSET, String.valueOf(DefaultConfig.defaultOffsetY));
     }

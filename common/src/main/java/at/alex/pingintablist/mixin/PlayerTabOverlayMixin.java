@@ -2,6 +2,7 @@ package at.alex.pingintablist.mixin;
 
 import at.alex.pingintablist.utils.Colors;
 import at.alex.pingintablist.utils.RenderUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.PlayerTabOverlay;
 import net.minecraft.client.multiplayer.PlayerInfo;
@@ -16,7 +17,7 @@ public class PlayerTabOverlayMixin {
      * @reason Overrides the renderPingIcon method in the PlayerTabOverlay class, to render the ping in text instead of the Icon.
      */
     @Overwrite
-    public void renderPingIcon(GuiGraphics guiGraphics, int i, int j, int k, PlayerInfo playerInfo) {
+    public void renderPingIcon(GuiGraphics guiGraphics, int width, int posX, int posY, PlayerInfo playerInfo) {
         String latency = String.valueOf(playerInfo.getLatency());
         int color = Colors.GRAY;
         if (playerInfo.getLatency() <= 0) {
@@ -32,6 +33,6 @@ public class PlayerTabOverlayMixin {
         } else {
             color = Colors.BLACK;
         }
-        RenderUtils.renderScaledText(guiGraphics, latency + "ms", j + i - 24, k+1, color,0.75f);
+        RenderUtils.renderScaledText(guiGraphics, latency + "ms",width, posX, posY, color);
     }
 }

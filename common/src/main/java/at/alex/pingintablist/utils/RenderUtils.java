@@ -9,19 +9,14 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 
 public class RenderUtils {
-    public static void renderScaledText(GuiGraphics guiGraphics, String text, int x, int y, int color, float scale) {
+    public static void renderScaledText(GuiGraphics guiGraphics, String text, int width, int x, int y, int color) {
         Font font = Minecraft.getInstance().font;
         Config config = CommonClass.config;
+        int stringW = Minecraft.getInstance().font.width(text);
+        int posX = width+x-stringW+config.offsetX;
         PoseStack poseStack = guiGraphics.pose();
         poseStack.pushPose();
-
-        // Scale the text
-        poseStack.scale(scale * config.fontSize / 12.0f, scale * config.fontSize / 12.0f, 1.0f);
-
-        // Draw the string
-        guiGraphics.drawString(font, text, (int) (x/scale), (int) (y/scale),color);
-
-        // Restore the previous state of the matrix stack
+        guiGraphics.drawString(font, text, posX, y+config.offsetY,color);
         poseStack.popPose();
     }
 }
