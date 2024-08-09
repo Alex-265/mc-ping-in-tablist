@@ -5,9 +5,11 @@
 A Minecraft mod, which changes the ping icon in the Tablist to text
 
 ## Features
+- No separate library download needed
 ### Ping in text:
-![Screenshot 1.png](art%2FScreenshot%201.png)
+![In game](https://cdn.modrinth.com/data/cached_images/f218c2787ebd1af995d6fb23eb784388a4434ad5.png)
 
 ### Config
-![Screenshot 2.png](art%2FScreenshot%202.png)
- + In-Game config (support for Forge Modlist and Modmenu(Fabric, Quilt))
+Customizable offset
+
+![Config](https://cdn.modrinth.com/data/cached_images/432f78b6aae7a8049857cd868b6e4419f6c9789b.png)
