@@ -21,7 +21,7 @@
       "at.alex.pingintablist.impl.modmenu.ModMenuImpl"
     ]
   },
-  "mixins": [],
+  "mixins": ["pingintablist.mixins.json"],
   "depends": {
     "fabricloader": ">=${FABRIC_LOADER}",
     "java": ">=${JAVA}",
