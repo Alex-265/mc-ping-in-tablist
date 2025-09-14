@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -24,7 +25,7 @@ public class PingInTablist {
 
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> new IConfigScreenFactory() {
             @Override
-            public @NotNull Screen createScreen(@NotNull Minecraft minecraft, @NotNull Screen screen) {
+            public Screen createScreen(ModContainer modContainer, Screen screen) {
                 return new ConfigScreen(Component.empty());
             }
         });
