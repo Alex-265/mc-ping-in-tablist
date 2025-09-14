@@ -1,8 +1,15 @@
 package at.alex.pingintablist;
 
 
+import at.alex.pingintablist.config.ConfigScreen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import org.jetbrains.annotations.NotNull;
 
 @Mod(Constants.MOD_ID)
 public class PingInTablist {
@@ -14,5 +21,12 @@ public class PingInTablist {
         // Use NeoForge to bootstrap the Common mod.
         Constants.LOG.info("Hello NeoForge world!");
         CommonClass.init();
+
+        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> new IConfigScreenFactory() {
+            @Override
+            public @NotNull Screen createScreen(@NotNull Minecraft minecraft, @NotNull Screen screen) {
+                return new ConfigScreen(Component.empty());
+            }
+        });
     }
 }

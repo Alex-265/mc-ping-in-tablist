@@ -4,9 +4,7 @@
   "package": "at.alex.pingintablist.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
-  "client": [
-    "ModListConfigButtonMixin"
-  ],
+  "client": [],
   "server": [],
   "injectors": {
     "defaultRequire": 1

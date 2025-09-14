@@ -15,8 +15,8 @@ public class ConfigScreen extends Screen {
     private final int entryW = 30;
     private final int defHeight = 25;
     private EditBox offsetXEntry;
-    private EditBox offsetYEntry;
     private final Config config = CommonClass.config;
+
     public ConfigScreen(Component pTitle) {
         super(pTitle);
         this.oldScreen = Minecraft.getInstance().screen;
@@ -26,46 +26,34 @@ public class ConfigScreen extends Screen {
     protected void init() {
         this.config.read();
         super.init();
-        this.offsetXEntry = new EditBox(Minecraft.getInstance().font,width/2 + 50, getPosY(0), entryW, defHeight, Component.literal("Int"));
+        this.offsetXEntry = new EditBox(Minecraft.getInstance().font, width / 2 + 50, getPosY(0), entryW, defHeight, Component.literal("Int"));
         this.offsetXEntry.setResponder((string) -> {
-            var number = tryParseIntWithLimits(string,Integer.MIN_VALUE,Integer.MAX_VALUE);
-            if(number!=null || string.isEmpty()){
+            var number = tryParseIntWithLimits(string, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            if (number != null || string.isEmpty()) {
                 this.offsetXEntry.setTextColor(14737632);
             } else {
                 this.offsetXEntry.setTextColor(16733525);
             }
         });
         this.offsetXEntry.setValue(String.valueOf(this.config.offsetX));
-        this.addRenderableWidget(new StringWidget(width/2 - 75 - 30, getPosY(0), 150, defHeight, Component.literal("X Offset"), font));
+        this.addRenderableWidget(new StringWidget(width / 2 - 75 - 30, getPosY(0), 150, defHeight, Component.literal("X Offset"), font));
         this.addRenderableWidget(offsetXEntry);
-
-        this.offsetYEntry = new EditBox(Minecraft.getInstance().font,width/2 + 50, getPosY(1), entryW, defHeight, Component.literal("Int"));
-        this.offsetYEntry.setResponder((string) -> {
-            var number = tryParseIntWithLimits(string,Integer.MIN_VALUE,Integer.MAX_VALUE);
-            if(number!=null || string.isEmpty()){
-                this.offsetYEntry.setTextColor(14737632);
-            } else {
-                this.offsetYEntry.setTextColor(16733525);
-            }
-        });
-        this.offsetYEntry.setValue(String.valueOf(this.config.offsetY));
-        this.addRenderableWidget(new StringWidget(width/2 - 75 - 30, getPosY(1), 150, defHeight, Component.literal("Y Offset"), font));
-        this.addRenderableWidget(offsetYEntry);
         this.addRenderableWidget(new Button.Builder(Component.literal("Save"), (button -> {
             this.onClose();
-        })).pos(width/2-75, height-35).size(150,20).build());
+        })).pos(width / 2 - 75, height - 35).size(150, 20).build());
     }
+
     @Override
     public void onClose() {
         super.onClose();
         this.config.offsetX = Integer.parseInt(this.offsetXEntry.getValue());
-        this.config.offsetY = Integer.parseInt(this.offsetYEntry.getValue());
         this.config.save();
         Minecraft.getInstance().setScreen(oldScreen);
     }
+
     @Nullable
     private Integer tryParseIntWithLimits(String s, int min, int max) {
-        if(s.isBlank())
+        if (s.isBlank())
             return null;
         try {
             int numb = Integer.parseInt(s);
@@ -76,7 +64,8 @@ public class ConfigScreen extends Screen {
             return null;
         }
     }
+
     private int getPosY(int row) {
-        return height/3 + (defHeight*row) + (10*row);
+        return height / 3 + (defHeight * row) + (10 * row);
     }
 }
