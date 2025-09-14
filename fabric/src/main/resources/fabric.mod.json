@@ -1,37 +1,34 @@
 {
-    "schemaVersion": 1,
-    "id": "${mod_id}",
-    "version": "${version}",
-    "name": "${mod_name}",
-    "description": "${description}",
-    "authors": [
-        "${mod_author}"
+  "schemaVersion": 1,
+  "id": "${MODID}",
+  "name": "${NAME}",
+  "version": "${version}",
+  "environment": "*",
+  "icon": "assets/pingintablist/icon.png",
+  "authors": ["${AUTHOR}"],
+  "license": "Unlicense",
+  "contact": {
+    "homepage": "${CURSE_HOMEPAGE}",
+    "sources": "${GIT_REPO}",
+    "issues": "${GIT_REPO}/issues"
+  },
+  "description": "${DESCRIPTION}",
+  "entrypoints": {
+    "main": [
+      "at.alex.pingintablist.PingInTablist"
     ],
-    "contact": {
-        "homepage": "https://fabricmc.net/",
-        "sources": "https://github.com/FabricMC/fabric-example-mod"
-    },
-    "license": "${license}",
-    "icon": "assets/${mod_id}/icon.png",
-    "environment": "*",
-    "entrypoints": {
-        "main": [
-            "at.alex.pingintablist.PingInTablist"
-        ],
-        "modmenu": ["at.alex.pingintablist.impl.modmenu.ModMenuImpl"]
-    },
-    "mixins": [
-        "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json"
-    ],
-    "depends": {
-        "fabricloader": ">=${fabric_loader_version}",
-        "fabric-api": "*",
-        "minecraft": "${minecraft_version}",
-        "java": ">=${java_version}"
-    },
-    "suggests": {
-        "another-mod": "*"
-    }
+    "modmenu": [
+      "at.alex.pingintablist.impl.modmenu.ModMenuImpl"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=${FABRIC_LOADER}",
+    "java": ">=${JAVA}",
+    "minecraft": "${MINECRAFT}"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
 }
   
