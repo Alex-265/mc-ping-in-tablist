@@ -7,7 +7,7 @@ import net.darkhax.curseforgegradle.Constants as CFG_Constants
 
 plugins {
     id("blamejared-modloader-conventions")
-    id("fabric-loom") version "1.8.9"
+    id("fabric-loom") version "1.10.1"
     id("com.modrinth.minotaur")
 }
 
