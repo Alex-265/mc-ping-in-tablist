@@ -8,7 +8,6 @@ version = "${version}"
 displayName = "${NAME}"
 displayURL = "${CURSE_HOMEPAGE}"
 authors = "${AUTHOR}"
-logoFile = "icon.png"
 description = '''${DESCRIPTION}'''
 [[mixins]]
 config = "${MODID}.mixins.json"

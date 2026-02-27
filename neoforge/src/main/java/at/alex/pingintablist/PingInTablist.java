@@ -17,7 +17,6 @@ public class PingInTablist {
 
     public PingInTablist(IEventBus eventBus) {
         CommonClass.init();
-
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (IConfigScreenFactory) (modContainer, screen) -> new ConfigScreen(Component.empty()));
     }
 }
