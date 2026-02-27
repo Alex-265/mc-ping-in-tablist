@@ -16,18 +16,8 @@ import org.jetbrains.annotations.NotNull;
 public class PingInTablist {
 
     public PingInTablist(IEventBus eventBus) {
-        // This method is invoked by the NeoForge mod loader when it is ready
-        // to load your mod. You can access NeoForge and Common code in this
-        // project.
-        // Use NeoForge to bootstrap the Common mod.
-        Constants.LOG.info("Hello NeoForge world!");
         CommonClass.init();
 
-        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> new IConfigScreenFactory() {
-            @Override
-            public Screen createScreen(ModContainer modContainer, Screen screen) {
-                return new ConfigScreen(Component.empty());
-            }
-        });
+        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (IConfigScreenFactory) (modContainer, screen) -> new ConfigScreen(Component.empty()));
     }
 }
