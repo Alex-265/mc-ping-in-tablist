@@ -26,7 +26,7 @@ public class ConfigScreen extends Screen {
     protected void init() {
         this.config.read();
         super.init();
-        this.offsetXEntry = new EditBox(Minecraft.getInstance().font, width / 2 + 50, getPosY(0), entryW, defHeight, Component.literal("Int"));
+        this.offsetXEntry = new EditBox(Minecraft.getInstance().font, width / 2 + 15 + 15, getPosY(0), entryW, defHeight, Component.literal("Int"));
         this.offsetXEntry.setResponder((string) -> {
             var number = tryParseIntWithLimits(string, Integer.MIN_VALUE, Integer.MAX_VALUE);
             if (number != null || string.isEmpty()) {
@@ -36,7 +36,7 @@ public class ConfigScreen extends Screen {
             }
         });
         this.offsetXEntry.setValue(String.valueOf(this.config.offsetX));
-        this.addRenderableWidget(new StringWidget(width / 2 - 75 - 30, getPosY(0), 150, defHeight, Component.literal("X Offset"), font));
+        this.addRenderableWidget(new StringWidget(width / 2 - 75 - 15 - 15, getPosY(0), 150, defHeight, Component.literal("X Offset"), font));
         this.addRenderableWidget(offsetXEntry);
         this.addRenderableWidget(new Button.Builder(Component.literal("Save"), (button -> {
             this.onClose();
