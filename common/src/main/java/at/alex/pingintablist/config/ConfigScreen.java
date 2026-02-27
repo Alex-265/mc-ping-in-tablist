@@ -1,6 +1,7 @@
 package at.alex.pingintablist.config;
 
 import at.alex.pingintablist.CommonClass;
+import at.alex.pingintablist.utils.Colors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -29,9 +30,9 @@ public class ConfigScreen extends Screen {
         this.offsetXEntry.setResponder((string) -> {
             var number = tryParseIntWithLimits(string, Integer.MIN_VALUE, Integer.MAX_VALUE);
             if (number != null || string.isEmpty()) {
-                this.offsetXEntry.setTextColor(14737632);
+                this.offsetXEntry.setTextColor(Colors.WHITE);
             } else {
-                this.offsetXEntry.setTextColor(16733525);
+                this.offsetXEntry.setTextColor(Colors.RED);
             }
         });
         this.offsetXEntry.setValue(String.valueOf(this.config.offsetX));
