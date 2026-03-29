@@ -16,7 +16,7 @@ version = GMUtils.updatingVersion(Versions.MOD)
 group = Properties.GROUP
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_21.majorVersion))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(JavaVersion.VERSION_25.majorVersion))
     withSourcesJar()
     withJavadocJar()
 }
@@ -34,12 +34,6 @@ repositories {
         name = "Sponge"
         content {
             includeGroupAndSubgroups("org.spongepowered")
-        }
-    }
-    maven("https://maven.parchmentmc.org/") {
-        name = "ParchmentMC"
-        content {
-            includeGroupAndSubgroups("org.parchmentmc")
         }
     }
 }

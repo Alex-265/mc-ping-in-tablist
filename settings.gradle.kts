@@ -17,5 +17,4 @@ plugins {
 rootProject.name = "mc-ping-in-tablist"
 include("common")
 include("fabric")
-include("forge")
 include("neoforge")

@@ -2,12 +2,11 @@ import com.blamejared.Properties
 import com.blamejared.Versions
 import com.blamejared.gradle.mod.utils.GMUtils
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
-import org.gradle.internal.impldep.com.fasterxml.jackson.databind.annotation.JsonAppend
 import net.darkhax.curseforgegradle.Constants as CFG_Constants
 
 plugins {
     id("blamejared-modloader-conventions")
-    id("fabric-loom") version "1.13-SNAPSHOT"
+    id("net.fabricmc.fabric-loom") version "1.16.0-alpha.10"
     id("com.modrinth.minotaur")
 }
 
@@ -17,10 +16,9 @@ repositories {
 
 dependencies {
     minecraft("com.mojang:minecraft:${Versions.MINECRAFT}")
-    mappings(loom.officialMojangMappings())
-    modImplementation("net.fabricmc:fabric-loader:${Versions.FABRIC_LOADER}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC}")
-    modImplementation("com.terraformersmc:modmenu:${Versions.MODMENU}")
+    implementation("net.fabricmc:fabric-loader:${Versions.FABRIC_LOADER}")
+    implementation("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC}")
+    implementation("com.terraformersmc:modmenu:${Versions.MODMENU}")
 }
 
 loom {
@@ -37,13 +35,12 @@ loom {
     }
 }
 
-tasks.create<TaskPublishCurseForge>("publishCurseForge") {
-    dependsOn(tasks.remapJar)
+tasks.register<TaskPublishCurseForge>("publishCurseForge") {
+    dependsOn(tasks.jar)
     apiToken = GMUtils.locateProperty(project, "curseforgeApiToken")
 
-    val mainFile = upload(Properties.CURSE_PROJECT_ID, tasks.remapJar.get().archiveFile)
+    val mainFile = upload(Properties.CURSE_PROJECT_ID, tasks.jar.get().archiveFile)
     mainFile.changelogType = "markdown"
-    mainFile.changelog = GMUtils.smallChangelog(project, Properties.GIT_REPO)
     mainFile.releaseType = CFG_Constants.RELEASE_TYPE_RELEASE
     mainFile.addJavaVersion("Java ${Versions.JAVA}")
     mainFile.addGameVersion(Versions.MINECRAFT)
@@ -57,15 +54,14 @@ tasks.create<TaskPublishCurseForge>("publishCurseForge") {
 modrinth {
     token.set(GMUtils.locateProperty(project, "modrinth_token"))
     projectId.set(Properties.MODRINTH_PROJECT_ID)
-    changelog.set(GMUtils.smallChangelog(project, Properties.GIT_REPO))
     versionName.set("${Properties.NAME}-${Versions.MINECRAFT}-$version (Fabric)")
     versionType.set("release")
-    uploadFile.set(tasks.remapJar.get())
+    uploadFile.set(tasks.jar.get())
     dependencies {
         optional.project("mOgUt4GM") // Modmenu
     }
 }
-tasks.modrinth.get().dependsOn(tasks.remapJar)
+tasks.modrinth.get().dependsOn(tasks.jar)
 
 tasks.named("publishCurseForge") {
     group = "publishing"

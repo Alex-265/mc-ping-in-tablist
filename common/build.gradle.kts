@@ -2,11 +2,12 @@ import com.blamejared.Versions
 
 plugins {
     id("blamejared-java-conventions")
-    id("org.spongepowered.gradle.vanilla") version "0.2.1-SNAPSHOT"
+    id("net.neoforged.moddev") version ("2.0.141")
 }
 
-minecraft {
-    version(Versions.MINECRAFT)
+
+neoForge {
+    version = Versions.NEO_FORGE
 }
 
 dependencies {

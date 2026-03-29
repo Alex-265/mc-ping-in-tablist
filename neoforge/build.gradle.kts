@@ -6,7 +6,7 @@ import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
     id("blamejared-modloader-conventions")
-    id("net.neoforged.moddev") version ("2.0.140")
+    id("net.neoforged.moddev") version ("2.0.141")
     id("com.modrinth.minotaur")
 }
 
@@ -33,13 +33,12 @@ neoForge {
 dependencies {
 }
 
-tasks.create<TaskPublishCurseForge>("publishCurseForge") {
+tasks.register<TaskPublishCurseForge>("publishCurseForge") {
     dependsOn(tasks.jar)
     apiToken = GMUtils.locateProperty(project, "curseforgeApiToken") ?: 0
 
     val mainFile = upload(Properties.CURSE_PROJECT_ID, tasks.jar.get().archiveFile)
     mainFile.changelogType = "markdown"
-    mainFile.changelog = GMUtils.smallChangelog(project, Properties.GIT_REPO)
     mainFile.releaseType = Constants.RELEASE_TYPE_RELEASE
     mainFile.addJavaVersion("Java ${Versions.JAVA}")
     mainFile.addGameVersion(Versions.MINECRAFT)
@@ -53,7 +52,6 @@ tasks.create<TaskPublishCurseForge>("publishCurseForge") {
 modrinth {
     token.set(GMUtils.locateProperty(project, "modrinth_token"))
     projectId.set(Properties.MODRINTH_PROJECT_ID)
-    changelog.set(GMUtils.smallChangelog(project, Properties.GIT_REPO))
     versionName.set("${Properties.NAME}-${Versions.MINECRAFT}-$version (NeoForge)")
     versionType.set("release")
     gameVersions.set(listOf(Versions.MINECRAFT))

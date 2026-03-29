@@ -3,7 +3,7 @@ package at.alex.pingintablist.mixin;
 import at.alex.pingintablist.CommonClass;
 import at.alex.pingintablist.utils.Colors;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.PlayerTabOverlay;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import org.spongepowered.asm.mixin.*;
@@ -23,7 +23,7 @@ public class PlayerTabOverlayMixin {
     @Shadow
     private Minecraft minecraft;
 
-    @ModifyConstant(method = "render", constant = @Constant(intValue = 13))
+    @ModifyConstant(method = "extractRenderState", constant = @Constant(intValue = 13))
     private int modifySpace(int o) {
         return getMaxFontSize();
     }
@@ -40,8 +40,8 @@ public class PlayerTabOverlayMixin {
         return Minecraft.getInstance().font.width(" " + (max == 0 ? "???" : max) + "ms") + CommonClass.config.offsetX;
     }
 
-    @Inject(method = "renderPingIcon", at = @At("HEAD"), cancellable = true)
-    public void renderPingIcon(GuiGraphics guiGraphics, int width, int posX, int posY, PlayerInfo playerInfo, CallbackInfo ci) {
+    @Inject(method = "extractPingIcon", at = @At("HEAD"), cancellable = true)
+    public void renderPingIcon(GuiGraphicsExtractor guiGraphics, int width, int posX, int posY, PlayerInfo playerInfo, CallbackInfo ci) {
         String latency = String.valueOf(playerInfo.getLatency());
 
         int color = Colors.GRAY;
@@ -61,7 +61,8 @@ public class PlayerTabOverlayMixin {
 
         String text = latency + "ms";
         int textWidth = minecraft.font.width(text);
-        guiGraphics.drawString(minecraft.font, text, posX + width - textWidth, posY, color, true);
+
+        guiGraphics.text(minecraft.font, text, posX + width - textWidth, posY, color, true);
         ci.cancel();
     }
 
