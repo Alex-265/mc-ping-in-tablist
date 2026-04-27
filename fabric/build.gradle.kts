@@ -41,6 +41,7 @@ tasks.register<TaskPublishCurseForge>("publishCurseForge") {
 
     val mainFile = upload(Properties.CURSE_PROJECT_ID, tasks.jar.get().archiveFile)
     mainFile.changelogType = "markdown"
+    mainFile.changelog = ""
     mainFile.releaseType = CFG_Constants.RELEASE_TYPE_RELEASE
     mainFile.addJavaVersion("Java ${Versions.JAVA}")
     mainFile.addGameVersion(Versions.MINECRAFT)
